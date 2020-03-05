@@ -22,6 +22,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+//ここから修正
+var server = http.createServer(app);
+ 
+server.listen(app.get('port'), function () { //add
+  console.log("Express server listening on port " + app.get('port'));
+});
+ 
+var socketIO = require('socket.io');
+//※1
+var io = socketIO.listen(server);
+ 
+io.sockets.on('connection', function (socket) {
+  console.log("connection");
+  //※2
+  socket.on('showPicture', function (data) {
+    io.sockets.emit('showPicture', { page: data.page});
+  });
+  socket.on('disconnect', function () {
+    console.log("disconnect");
+  });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
