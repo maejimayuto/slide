@@ -23,11 +23,15 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 //ここから修正
+const http = require('http');
 var server = http.createServer(app);
  
-server.listen(app.get('port'), function () { //add
-  console.log("Express server listening on port " + app.get('port'));
+server.listen(3000, function () { //add
+  console.log("Express server listening on port 3000");
 });
+// server.listen(app.get('port'), function () { //add
+//   console.log("Express server listening on port " + app.get('port'));
+// });
  
 var socketIO = require('socket.io');
 //※1

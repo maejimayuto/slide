@@ -32,7 +32,7 @@ $(function () {
   socket.on('showPicture', function (msg) {
     pageNumber = msg.page;
     console.dir(msg);
-    $("#image").attr("src","/images/slide-" + pageNumber + ".png");
+    $("#image").attr("src","/images/slide-" + pageNumber + ".jpeg");
   });
 });
 
