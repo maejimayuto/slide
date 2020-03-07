@@ -1,4 +1,10 @@
 $(function () {
+  //socket.ioの初期化処理
+  var socket = io.connect('http://localhost:3000');
+  socket.on('connect', function (msg) {
+    console.log("connect");
+  });
+
   //表示するページ番号
   var pageNumber = 1;
   
@@ -11,7 +17,7 @@ $(function () {
       page: pageNumber
     });
   });
-  
+
   //nextボタンを押したときの処理
   $("#next").click(function () {
     if(pageNumber < 3) {
@@ -22,12 +28,6 @@ $(function () {
     });
   });
 
-  //socket.ioの初期化処理
-  var socket = io.connect('http://localhost:3000');
-  socket.on('connect', function (msg) {
-    console.log("connect");
-  });
-
   //showPictureメッセージをうけとったときの処理
   socket.on('showPicture', function (msg) {
     pageNumber = msg.page;
@@ -35,5 +35,3 @@ $(function () {
     $("#image").attr("src","/images/slide-" + pageNumber + ".jpeg");
   });
 });
-
-// [/javascript]
